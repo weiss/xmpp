@@ -786,6 +786,7 @@
 -record(upload_request_0, {filename = <<>> :: binary(),
                            size :: pos_integer(),
                            'content-type' = <<>> :: binary(),
+                           purpose :: 'ephemeral' | 'message' | 'permanent' | 'profile' | 'undefined',
                            xmlns = <<>> :: binary()}).
 -type upload_request_0() :: #upload_request_0{}.
 
@@ -1155,20 +1156,6 @@
                                    extensions :: 'undefined' | [xmpp_element() | fxml:xmlel()]}).
 -type pep_bookmarks_conference() :: #pep_bookmarks_conference{}.
 
--record(jingle_reason, {reason :: atom(),
-                        text = [] :: [#text{}],
-                        sub_els = [] :: [xmpp_element() | fxml:xmlel()]}).
--type jingle_reason() :: #jingle_reason{}.
-
--record(jingle, {action :: 'content-accept' | 'content-add' | 'content-modify' | 'content-reject' | 'content-remove' | 'description-info' | 'security-info' | 'session-accept' | 'session-info' | 'session-initiate' | 'session-terminate' | 'transport-accept' | 'transport-info' | 'transport-reject' | 'transport-replace',
-                 sid = <<>> :: binary(),
-                 initiator :: undefined | jid:jid(),
-                 responder :: undefined | jid:jid(),
-                 content = [] :: [#jingle_content{}],
-                 reason :: 'undefined' | #jingle_reason{},
-                 sub_els = [] :: [xmpp_element() | fxml:xmlel()]}).
--type jingle() :: #jingle{}.
-
 -record(upload_slot, {get :: 'undefined' | binary(),
                       put :: 'undefined' | binary(),
                       xmlns = <<>> :: binary()}).
@@ -1241,30 +1228,6 @@
                      binval :: 'undefined' | binary(),
                      extval :: 'undefined' | binary()}).
 -type vcard_logo() :: #vcard_logo{}.
-
--record(register, {registered = false :: boolean(),
-                   remove = false :: boolean(),
-                   instructions :: 'undefined' | binary(),
-                   username :: 'undefined' | binary(),
-                   nick :: 'undefined' | binary(),
-                   password :: 'undefined' | binary(),
-                   name :: 'undefined' | binary(),
-                   first :: 'undefined' | binary(),
-                   last :: 'undefined' | binary(),
-                   email :: 'undefined' | binary(),
-                   address :: 'undefined' | binary(),
-                   city :: 'undefined' | binary(),
-                   state :: 'undefined' | binary(),
-                   zip :: 'undefined' | binary(),
-                   phone :: 'undefined' | binary(),
-                   url :: 'undefined' | binary(),
-                   date :: 'undefined' | binary(),
-                   misc :: 'undefined' | binary(),
-                   text :: 'undefined' | binary(),
-                   key :: 'undefined' | binary(),
-                   xdata :: 'undefined' | #xdata{},
-                   sub_els = [] :: [xmpp_element() | fxml:xmlel()]}).
--type register() :: #register{}.
 
 -record(mark_received, {id = <<>> :: binary()}).
 -type mark_received() :: #mark_received{}.
@@ -1413,6 +1376,44 @@
                    create :: 'undefined' | binary(),
                    configuration :: 'undefined' | {binary(),'undefined' | #xdata{}}}).
 -type ps_event() :: #ps_event{}.
+
+-record(jingle_reason, {reason :: atom(),
+                        text = [] :: [#text{}],
+                        sub_els = [] :: [xmpp_element() | fxml:xmlel()]}).
+-type jingle_reason() :: #jingle_reason{}.
+
+-record(jingle, {action :: 'content-accept' | 'content-add' | 'content-modify' | 'content-reject' | 'content-remove' | 'description-info' | 'security-info' | 'session-accept' | 'session-info' | 'session-initiate' | 'session-terminate' | 'transport-accept' | 'transport-info' | 'transport-reject' | 'transport-replace',
+                 sid = <<>> :: binary(),
+                 initiator :: undefined | jid:jid(),
+                 responder :: undefined | jid:jid(),
+                 content = [] :: [#jingle_content{}],
+                 reason :: 'undefined' | #jingle_reason{},
+                 sub_els = [] :: [xmpp_element() | fxml:xmlel()]}).
+-type jingle() :: #jingle{}.
+
+-record(register, {registered = false :: boolean(),
+                   remove = false :: boolean(),
+                   instructions :: 'undefined' | binary(),
+                   username :: 'undefined' | binary(),
+                   nick :: 'undefined' | binary(),
+                   password :: 'undefined' | binary(),
+                   name :: 'undefined' | binary(),
+                   first :: 'undefined' | binary(),
+                   last :: 'undefined' | binary(),
+                   email :: 'undefined' | binary(),
+                   address :: 'undefined' | binary(),
+                   city :: 'undefined' | binary(),
+                   state :: 'undefined' | binary(),
+                   zip :: 'undefined' | binary(),
+                   phone :: 'undefined' | binary(),
+                   url :: 'undefined' | binary(),
+                   date :: 'undefined' | binary(),
+                   misc :: 'undefined' | binary(),
+                   text :: 'undefined' | binary(),
+                   key :: 'undefined' | binary(),
+                   xdata :: 'undefined' | #xdata{},
+                   sub_els = [] :: [xmpp_element() | fxml:xmlel()]}).
+-type register() :: #register{}.
 
 -type xmpp_element() :: address() |
                         addresses() |
